@@ -1,6 +1,8 @@
 package br.ufc.dc.tpi.banco;
 
 import br.ufc.dc.tpi.contas.ContaAbstrata;
+import br.ufc.dc.tpi.contas.ContaEspecial;
+import br.ufc.dc.tpi.contas.ContaPoupança;
 
 import br.ufc.dc.tpi.implementações.*;
 
@@ -60,4 +62,21 @@ public class BancoIndependente implements IBanco{
 		procurar(destino).creditar(valor);
 	}
 	
+	public void renderBonus(String numero){
+		ContaAbstrata conta = procurar(numero);
+		if(conta instanceof ContaEspecial){
+			((ContaEspecial) conta).renderBonus();
+		}else{
+			System.out.println("Essa não é uma conta especial");
+		}
+	}
+	
+	public void renderJuros(String numero, double taxa){
+		ContaAbstrata conta = procurar(numero);
+		if(conta instanceof ContaPoupança){
+			((ContaPoupança) conta).renderJuros(taxa);
+		}else{
+			System.out.println("Essa não é uma conta poupança");
+		}
+	}
 }
